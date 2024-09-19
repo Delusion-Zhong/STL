@@ -82,9 +82,11 @@
         "dynamic_bitset": "cpp",
         "typeindex": "cpp",
         "valarray": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "*.idl": "cpp",
+        "rb_tree": "cpp"
     },
-    "C_Cpp.errorSquiggles": "enabled",
+    "C_Cpp.errorSquiggles": "disabled",
     "commentTranslate.hover.enabled": true,
     "commentTranslate.targetLanguage": "zh-CN"
 }
