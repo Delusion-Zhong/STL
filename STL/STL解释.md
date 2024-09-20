@@ -11,6 +11,7 @@
 **5.适配器（Adaptors）**：一种用来修饰容器或者仿函数或迭代器接口的东西。例如 STL 提供的 queue 和 stack，就是一种空间配接器，因为它们的底部完全借助于 deque。
 **6.分配器（Allocators）**：也称为空间配置器，负责空间的配置与管理。从实现的角度来看，配置器是一个实现了动态配置空间、空间管理、空间释放的 class template。
 
+***
  # 容器介绍
  ![GitHub Logo](/images/容器介绍.png)
 
@@ -18,6 +19,7 @@
  ````
  安装目录：mingw64\lib\gcc\x86_64-w64-mingw32\8.1.0\include
 ````
+***
  # 1.分配器
    关于分配器的解读：
    https://blog.csdn.net/weixin_52665939/article/details/131620359
@@ -31,8 +33,17 @@
 ```
     vector<string, __gnu_cxx::_pool_alloc<string>> vec;
  ```
+ ***
+# 容器介绍
  
+## vector
 
+ ![GitHub Logo](/images/vector.png)
+  
+   在上图中 vector 是一个 自动扩充的数组，每次遇到超出长度都会**2倍扩容 (当在内存中找不到 2倍内存的时候这个容器的生命周期就会结束 )**
+
+  **在每一次扩容的时候都会有大量的拷贝动作**
+ 
 
 
  

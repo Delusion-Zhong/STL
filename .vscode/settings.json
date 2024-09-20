@@ -86,7 +86,7 @@
         "*.idl": "cpp",
         "rb_tree": "cpp"
     },
-    "C_Cpp.errorSquiggles": "disabled",
+    "C_Cpp.errorSquiggles": "enabled",
     "commentTranslate.hover.enabled": true,
     "commentTranslate.targetLanguage": "zh-CN"
 }
