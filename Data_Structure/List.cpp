@@ -7,10 +7,15 @@ namespace List
     // 例如 存储 学生姓名,学号,成绩 单链表结构如下
     typedef struct student
     {
-        string  name;  //
+        string name; 
         long num;
         int score;
-    }ELemType;
+    } ELemType;
+    typedef struct Lnode
+    {
+        ELemType data;
+        struct Lnode *next;
+    } Lnode, *LinkList;
 
 }
 
