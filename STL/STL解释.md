@@ -1,6 +1,6 @@
  <h1 align="center">    STL    </h1>
 
- ![这是图片](/images/六大部件.png)
+ ![这是图片](/STL/images/六大部件.png)
 
  STL 提供了六大组件，彼此组合套用协同工作。这六大组件分别是：
 
@@ -13,7 +13,7 @@
 
 ***
  # 容器介绍
- ![GitHub Logo](/images/容器介绍.png)
+ ![GitHub Logo](/STL/images/容器介绍.png)
 
 ## 在mingw64中文件夹下源码路劲
  ````
@@ -38,7 +38,7 @@
  
 ## vector
 
- ![GitHub Logo](/images/vector.png)
+ ![GitHub Logo](/STL/images/vector.png)
   
    在上图中 vector 是一个 自动扩充的数组，每次遇到超出长度都会**2倍扩容 (当在内存中找不到 2倍内存的时候这个容器的生命周期就会结束 )**
 

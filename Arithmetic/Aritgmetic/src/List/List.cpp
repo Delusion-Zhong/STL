@@ -76,8 +76,8 @@ public:
         if (Size() == arrCapacity)
             extendCapacity(); // 列表扩容
 
-        for (int j = Size(); j >= index; --j) //            0      1     2    3
-                                              // 先找到下标，当输入的index小于 j的时候所有元素后移  10   (15)   20   30       size（j）=3   index=3
+        for (int j = Size(); j >= index; --j) // 0      1     2    3
+       // 先找到下标，当输入的index小于 j的时候所有元素后移  10   (15)   20   30       size（j）=3   index=3
         {
             arr[j + 1] = arr[j];
         }

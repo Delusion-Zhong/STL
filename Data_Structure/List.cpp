@@ -1,7 +1,9 @@
 
 #include <iostream>
 #include <cstring>
+
 using namespace std;
+
 #define TRUE 1
 #define FALSE 0
 #define OK 1
@@ -21,6 +23,7 @@ namespace LinkdList
         long num;
         int score;
     } ELemType;
+    // 单链表的指针
     typedef struct Lnode
     {
         ELemType data;
@@ -48,7 +51,6 @@ namespace LinkdList
             return 1;
         }
     }
-
     // 单链表的销毁，
     Status LinkdList::DestroyLIst(LinkList &L)
     {
@@ -61,7 +63,6 @@ namespace LinkdList
         }
         return OK;
     }
-
     // 清空单链表
     // 思路：依次释放所有节点，将头节点指针域设置为空
     Status LinkdList::ReviseList(LinkList &L)
@@ -78,6 +79,24 @@ namespace LinkdList
         }
         L->next = nullptr;
         return OK;
+    }
+    // 求单链表的表长
+    Status LinkdList::SizeList(LinkList L)
+    {
+        // 先有一个指针，当指针下移 则++ （同时进行判断是否为空）
+        LinkList p;
+        int index = 0; // 设置一个计数器
+        p = L->next;   // 先获取首个节点 （因为这是一个带有头节点的单链表（不计入链表的长度））
+
+        while (p)
+        {
+            /*
+            进行判断p！=null  不是null 时进入循环,计数器加一，p指向下一个节点依次循环
+        */
+            index++;
+            p = p->next;
+        }
+        return index;
     }
 
 }
