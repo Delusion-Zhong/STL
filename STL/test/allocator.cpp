@@ -10,7 +10,7 @@ int main()
      allocator<int>().deallocate(p, 512);
 
     // vector<string, __gnu_cxx::_pool_alloc<string>> vec;
-    vector <string , __gnu_cxx::new_allocator<string>> vec;
+    // vector <string , __gnu_cxx::new_allocator<string>> vec;
     cin.get();
     return 0;
 
