@@ -5,13 +5,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "java",
-            "name": "a",
-            "request": "launch",
-            "mainClass": "STL.test.a",
-            "projectName": "STL_9cdc1a9c"
-        },
-        {
             "name": "g++.exe - 生成和调试活动文件",
             "type": "cppdbg",
             "request": "launch",
