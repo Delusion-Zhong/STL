@@ -43,7 +43,7 @@ namespace LinkdList_demo
     {
         return th.name == data_b.name && th.num == data_b.num && th.score == data_b.score;
     }
-    istream &LinkdList_demo::operator>>(istream &in, ElemType &data)
+    istream & LinkdList_demo::operator>>(istream &in, ElemType &data)
     {
         cin >> data.name >> data.num >> data.score; // 读取数据
         return in;
