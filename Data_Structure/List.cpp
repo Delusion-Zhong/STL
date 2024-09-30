@@ -287,7 +287,53 @@ namespace List_demo
 
     namespace DulindList // 双向链表
     {
+        // 查找索引元素
+        DuLinkList FindList(DuLinkList L, int index)
+        {
+            DuLinkList p;
 
+            p = L->next;
+            int j = 1;             // 首元节点
+            while (p && j < index) // 先判断 p 是否为空 并且 满足 j< index
+            {                      // 下移计数
+                p = p->next;
+                ++j;
+            }
+            if (!p || j > index) // p不为空但是 index的索引大于链表的长度
+                return ERROR;
+
+            return p;
+        }
+        // 插入元素
+
+        Status Insert_List(DuLinkList &L, int index, ElemType e)
+        {
+            DuLinkList p;                  // 定义当前节点
+            if (!(p = FindList(L, index))) // 查找到当前索引链表的位置
+                return ERROR;
+
+            DuLinkList s;        // 插入的新元素节点
+            s->data = e;         // 将数据传入 双链表节点 s中
+            s->prior = p->prior; // 当前节点的上一个节点
+            s = p->prior->next;  // 将上一个节点的下一个节点设置为 当前节点 S
+            s->next = p;         // 将p 设置为 s的next
+            p->prior = s;        // 将s设置为p的prior
+            return OK;
+        }
+        // 根索引删除元素
+        Status Delete_List(DuLinkList &L, int index, ElemType &e)
+        {
+            DuLinkList p;                  // 查找到index节点
+            if (!(p = FindList(L, index))) // 查找到当前索引链表的位置
+                return ERROR;
+            e = p->data;
+            // 假设现在有链表  a<====>b<====>c  删除b
+            //   b             c
+            //   |            |
+            p->prior->next = p->next;  // 将c的地址 给到a的next
+            p->next->prior = p->prior; // 将a的节点给到c的piror
+            delete p;
+        }
     }
 
 }
