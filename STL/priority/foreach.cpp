@@ -21,7 +21,6 @@ int main()
         i *= 3;
         cout << i << endl;
     }
-
     cin.get();
     return 0;
 }
