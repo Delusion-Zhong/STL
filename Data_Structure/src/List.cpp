@@ -4,16 +4,6 @@
 #include "../include/List.h"
 
 using namespace std;
-
-#define TRUE 1
-#define FALSE 0
-#define OK 1
-#define ERROR 0
-#define INFEASIBLE -1
-#define OVERFLOW -2
-typedef int Status;
-typedef char ElemType;
-
 // 链表
 namespace List_demo
 
@@ -41,7 +31,7 @@ namespace List_demo
     namespace LindList // 链表
     {
 
-        // 运输符 重载
+        // 运算符重载
         bool operator!=(const ElemType &th, const ElemType &data_b)
         {
             return th.name != data_b.name || th.num != data_b.num || th.score != data_b.score;
@@ -56,6 +46,7 @@ namespace List_demo
             cin >> data.name >> data.num >> data.score; // 读取数据
             return in;
         }
+
 
         // 单链表的初始化 （带头节点的单链表）
         Status LinkList_L(LinkList &L)
@@ -333,10 +324,11 @@ namespace List_demo
             p->prior->next = p->next;  // 将c的地址 给到a的next
             p->next->prior = p->prior; // 将a的节点给到c的piror
             delete p;
+            return OK;
         }
     }
 
-}
+ }
 
 int main()
 {
