@@ -7,7 +7,7 @@
 using namespace std;
 
 // 链表
-namespace _List_demo
+namespace _List_test
 
 {
     // 例如 存储 学生姓名,学号,成绩 单链表结构如下
@@ -23,15 +23,15 @@ namespace _List_demo
     {
         ElemType data;
         struct Lnode *next;
-    } Lnode, *LinkList;
+    } Lnode, *LinkList_ptr;
     // 双向链表的指针
     typedef struct DuLnode
     {
         ElemType data;
         struct DuLnode *next, *prior;
-    } DuLnode, *DuLinkList;
+    } DuLnode, *DuLinkList_ptr;
 
-    namespace _LindList // 单链表
+    namespace _LindList_ // 单链表
     {
 
         // 运算符重载
@@ -51,7 +51,7 @@ namespace _List_demo
         }
 
         // 单链表的初始化 （带头节点的单链表）
-        Status LinkList_L(LinkList &L)
+        Status LinkList_L(LinkList_ptr &L)
         {
             // 1.生成新的结点作为头节点，用头指针L 指向头节点
             // 2. 将头节点的指针域置为空
@@ -61,7 +61,7 @@ namespace _List_demo
         }
 
         // 判断连链表是否为空
-        Status ListEmpty(LinkList L)
+        Status ListEmpty(LinkList_ptr L)
         {
 
             if (L->next)
@@ -75,9 +75,9 @@ namespace _List_demo
         }
 
         // 单链表的销毁，
-        Status DestroyLIst(LinkList &L)
+        Status DestroyLIst(LinkList_ptr &L)
         {
-            LinkList p;
+            LinkList_ptr p;
             while (L)
             {
                 p = L;       // 先记录 L头节点的位置
@@ -89,9 +89,9 @@ namespace _List_demo
 
         // 清空单链表
         // 思路：依次释放所有节点，将头节点指针域设置为空
-        Status ReviseList(LinkList &L)
+        Status ReviseList(LinkList_ptr &L)
         {
-            LinkList P, Q;
+            LinkList_ptr P, Q;
             P = L->next;
             while (P) // 结束条件 P==null
             {
@@ -106,10 +106,10 @@ namespace _List_demo
         }
 
         // 求单链表的表长
-        Status SizeList(LinkList L)
+        Status SizeList(LinkList_ptr L)
         {
             // 先有一个指针，当指针下移 则++ （同时进行判断是否为空）
-            LinkList p;
+            LinkList_ptr p;
             int index = 0; // 设置一个计数器
             p = L->next;   // 先获取首个节点 （因为这是一个带有头节点的单链表（不计入链表的长度））
 
@@ -125,9 +125,9 @@ namespace _List_demo
         }
         /********************************************************************************************************* */
         // 查找元素(索引查找)
-        Status FindList(LinkList L, int index, ElemType &e)
+        Status FindList(LinkList_ptr L, int index, ElemType &e)
         {
-            LinkList p;
+            LinkList_ptr p;
             int j = 1;
             p = L->next;           // 首元节点
             while (p && j < index) // 先判断 p 是否为空 并且 满足 j< index
@@ -142,9 +142,9 @@ namespace _List_demo
         }
 
         // 按值查找（返回的是p指向linklist节点数据域)
-        LinkList Find_data_List(LinkList L, ElemType datp)
+        LinkList_ptr Find_data_List(LinkList_ptr L, ElemType datp)
         {
-            LinkList p;
+            LinkList_ptr p;
             p = L->next;
             while (p && p->data != datp) // p->data 相当于 this，而 datp 是作为参数传入的对象
                 p = p->next;
@@ -152,9 +152,9 @@ namespace _List_demo
         }
 
         // 按值查找（返回的位置的下标)
-        Status Find_index_List(LinkList L, ElemType datp)
+        Status Find_index_List(LinkList_ptr L, ElemType datp)
         {
-            LinkList p;
+            LinkList_ptr p;
             p = L->next;
             int j = 1;
             while (p && p->data != datp)
@@ -169,9 +169,9 @@ namespace _List_demo
         }
 
         // 插入
-        Status Insert_List(LinkList &L, ElemType datp, int index)
+        Status Insert_List(LinkList_ptr &L, ElemType datp, int index)
         {
-            LinkList p;
+            LinkList_ptr p;
             int j = 0;
             while (p && j < index - 1)
             {
@@ -182,17 +182,17 @@ namespace _List_demo
                 return ERROR;
 
             // null-------》1（指针p）------(插入datp （指针S）)------》2----------》3
-            LinkList s = new Lnode; // new 一块新的地址
-            s->data = datp;         // 将新的数据域赋给 s->data
-            s->next = p->next;      // 将现在   s.next=p.next 原来指向2的指针赋值给datp（的指针s）
-            p->next = s;            // 在将s的地址赋值给1.next （p.next）
+            LinkList_ptr s = new Lnode; // new 一块新的地址
+            s->data = datp;             // 将新的数据域赋给 s->data
+            s->next = p->next;          // 将现在   s.next=p.next 原来指向2的指针赋值给datp（的指针s）
+            p->next = s;                // 在将s的地址赋值给1.next （p.next）
             return OK;
         }
 
         // 删除
-        Status Delete_List(LinkList &L, int index) // 1  2  3  4   5
+        Status Delete_List(LinkList_ptr &L, int index) // 1  2  3  4   5
         {
-            LinkList p, q; // 创建变量，存储前驱和后继
+            LinkList_ptr p, q; // 创建变量，存储前驱和后继
             int j = 0;
             p = L;
             while (p->next && j < index - 1) // 删除节点的前驱
@@ -209,13 +209,13 @@ namespace _List_demo
         }
 
         // 头插法
-        Status Head_Insert_List(LinkList &L, int index)
+        Status Head_Insert_List(LinkList_ptr &L, int index)
         {
-            LinkList Q;        // 建立链表
+            LinkList_ptr Q;    // 建立链表
             Q->next = nullptr; // 头节点的next为空
             for (int i = index; i > 0; --i)
             {
-                LinkList p = new Lnode;
+                LinkList_ptr p = new Lnode;
                 cin >> p->data; // 当在这里在data中输入信息的时候，用到的（>> 运算符重载 ）
                 p->next = Q->next;
                 Q->next = p;
@@ -225,13 +225,13 @@ namespace _List_demo
         }
 
         // 尾差法     1    2       3      4         5   --->null
-        Status Tail_Insert_List(LinkList &L, int index)
+        Status Tail_Insert_List(LinkList_ptr &L, int index)
         {
             // 检查索引是否有效
             if (index < 0)
                 return ERROR;
 
-            LinkList K = L; // 尾指针，初始化为链表的头节点
+            LinkList_ptr K = L; // 尾指针，初始化为链表的头节点
 
             // 如果链表为空，初始化链表并输入第一个节点的数据
             if (!L)
@@ -251,11 +251,11 @@ namespace _List_demo
             // 插入新节点
             for (int i = 0; i < index; i++)
             {
-                LinkList Q = new Lnode; // 创建新节点
-                cin >> Q->data;         // 输入新节点的数据
-                Q->next = nullptr;      // 新节点的下一个指针设为 nullptr
-                K->next = Q;            // 将尾节点的下一个指针指向新节点
-                K = Q;                  // 更新尾指针 K 为新节点
+                LinkList_ptr Q = new Lnode; // 创建新节点
+                cin >> Q->data;             // 输入新节点的数据
+                Q->next = nullptr;          // 新节点的下一个指针设为 nullptr
+                K->next = Q;                // 将尾节点的下一个指针指向新节点
+                K = Q;                      // 更新尾指针 K 为新节点
             }
 
             return OK; // 返回成功状态
@@ -263,12 +263,12 @@ namespace _List_demo
 
     } // namespace 单链表
 
-    namespace _Circulate_List //  循环链表
+    namespace _CirculateList_ //  循环链表
     {
         // 带有尾指针的循环链表的合并
-        LinkList &Connect(LinkList &Ta, LinkList &Tb) // 两个尾节点
+        LinkList_ptr &Connect(LinkList_ptr &Ta, LinkList_ptr &Tb) // 两个尾节点
         {
-            LinkList p;                // 存放 Ta的头节点
+            LinkList_ptr p;            // 存放 Ta的头节点
             p = Ta->next;              // 获取Ta的头节点
             Ta->next = Tb->next->next; // 将Tb的头节点的地址赋值为Ta尾节点的下一个节点
             delete Tb->next;           // 释放Tb的空头结点（带有空头节点的链表）
@@ -278,12 +278,12 @@ namespace _List_demo
 
     }
 
-    namespace _DulindList // 双向链表
+    namespace _DulindList_ // 双向链表
     {
         // 查找索引元素
-        DuLinkList FindList(DuLinkList L, int index)
+        DuLinkList_ptr FindList(DuLinkList_ptr L, int index)
         {
-            DuLinkList p;
+            DuLinkList_ptr p;
 
             p = L->next;
             int j = 1;             // 首元节点
@@ -299,13 +299,13 @@ namespace _List_demo
         }
         // 插入元素
 
-        Status Insert_List(DuLinkList &L, int index, ElemType e)
+        Status Insert_List(DuLinkList_ptr &L, int index, ElemType e)
         {
-            DuLinkList p;                  // 定义当前节点
+            DuLinkList_ptr p;                  // 定义当前节点
             if (!(p = FindList(L, index))) // 查找到当前索引链表的位置
                 return ERROR;
 
-            DuLinkList s;        // 插入的新元素节点
+            DuLinkList_ptr s;        // 插入的新元素节点
             s->data = e;         // 将数据传入 双链表节点 s中
             s->prior = p->prior; // 当前节点的上一个节点
             s = p->prior->next;  // 将上一个节点的下一个节点设置为 当前节点 S
@@ -314,9 +314,9 @@ namespace _List_demo
             return OK;
         }
         // 根索引删除元素
-        Status Delete_List(DuLinkList &L, int index, ElemType &e)
+        Status Delete_List(DuLinkList_ptr &L, int index, ElemType &e)
         {
-            DuLinkList p;                  // 查找到index节点
+            DuLinkList_ptr p;                  // 查找到index节点
             if (!(p = FindList(L, index))) // 查找到当前索引链表的位置
                 return ERROR;
             e = p->data;
@@ -330,7 +330,7 @@ namespace _List_demo
         }
     }
 }
-namespace stack_test //!! 栈
+namespace _stack_test //!! 栈
 {
 
     //!!  表尾是栈顶Top, 表头是栈底 Base
@@ -358,11 +358,11 @@ namespace stack_test //!! 栈
     Status InitStack(SqStack &S) // 初始化栈
     {
 
-        S.Base = new SElemType[MAXSIZE]; // 开辟内存
+        S.Base = new SElemType[MAXSSIZE]; // 开辟内存
         if (!S.Base)
-            exit(OVERFLOW);    // 判断  内存是否成功
-        S.Top = S.Base;        // 栈顶 ==栈底  相当于 空栈
-        S.StackSize = MAXSIZE; // 长度
+            exit(OVERFLOW);     // 判断  内存是否成功
+        S.Top = S.Base;         // 栈顶 ==栈底  相当于 空栈
+        S.StackSize = MAXSSIZE; // 长度
         return OK;
     }
     Status IfStack(SqStack S)
@@ -419,7 +419,7 @@ namespace stack_test //!! 栈
         return OK;
     }
 
-    namespace _LinkdStack // 链栈
+    namespace _LinkdStack_ // 链栈
     {
         Status InitLinkdStack(LinkdStack &S) // 初始化
         {
@@ -454,11 +454,10 @@ namespace stack_test //!! 栈
             return OK;
         }
 
-        SElemType GetTop(LinkdStack S)  //获取栈顶元素
+        SElemType GetTop(LinkdStack S) // 获取栈顶元素
         {
             if (S != nullptr)
-                return S->data;
-
+                return S->data; //  这里警告的原因是  在SElemType 中什么也为定义
         }
 
     } // namespace LinkdStack
@@ -467,6 +466,20 @@ namespace stack_test //!! 栈
 
 namespace _queue_test //!! 队列
 {
+    typedef struct
+    {
+    } QElmType;
+
+    typedef struct
+    {
+        QElmType *base; // 初始化动态分配空间
+        int front;      // 头
+        int rear;       // 尾
+    } SqQueue, *Queue_ptr;
+
+    // Status initQueue(SqQueue &Q) // 初始化 队列
+    // {
+    // }
 
 }
 
@@ -476,3 +489,14 @@ int main()
     cin.get();
     return 0;
 }
+namespace demo
+{ // 递归调用
+    int _fact(int n)
+    {
+        if (n == 0)
+            return 0;
+        else
+            return n * _fact(n - 1);
+    }
+
+} // namespace demo

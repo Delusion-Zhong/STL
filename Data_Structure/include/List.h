@@ -6,4 +6,5 @@
 #define OVERFLOW -2
 typedef int Status;
 typedef char ElemType;
-#define MAXSIZE 100 
+#define MAXSSIZE 100
+#define MAXQSIZE 100
