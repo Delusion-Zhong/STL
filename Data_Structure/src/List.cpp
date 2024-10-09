@@ -1,11 +1,13 @@
 
 #include <iostream>
 #include <cstring>
-#include "../include/List.h"
+#include <List>
 
+#include "../include/List.h"
 using namespace std;
+
 // 链表
-namespace List_demo
+namespace _List_demo
 
 {
     // 例如 存储 学生姓名,学号,成绩 单链表结构如下
@@ -28,7 +30,8 @@ namespace List_demo
         ElemType data;
         struct DuLnode *next, *prior;
     } DuLnode, *DuLinkList;
-    namespace LindList // 链表
+
+    namespace _LindList // 单链表
     {
 
         // 运算符重载
@@ -46,7 +49,6 @@ namespace List_demo
             cin >> data.name >> data.num >> data.score; // 读取数据
             return in;
         }
-
 
         // 单链表的初始化 （带头节点的单链表）
         Status LinkList_L(LinkList &L)
@@ -261,7 +263,7 @@ namespace List_demo
 
     } // namespace 单链表
 
-    namespace Circulate_List //  循环链表
+    namespace _Circulate_List //  循环链表
     {
         // 带有尾指针的循环链表的合并
         LinkList &Connect(LinkList &Ta, LinkList &Tb) // 两个尾节点
@@ -276,7 +278,7 @@ namespace List_demo
 
     }
 
-    namespace DulindList // 双向链表
+    namespace _DulindList // 双向链表
     {
         // 查找索引元素
         DuLinkList FindList(DuLinkList L, int index)
@@ -327,8 +329,146 @@ namespace List_demo
             return OK;
         }
     }
+}
+namespace stack_test //!! 栈
+{
 
- }
+    //!!  表尾是栈顶Top, 表头是栈底 Base
+    //  插入元素到栈顶(表尾 ) 的操作 称为 入栈
+    // 从 栈顶 （表尾） 删除最后一个元素的操作 称为 入栈
+    typedef struct Stack_data
+    {
+    } SElemType;
+
+    typedef struct _Stack
+    {
+        SElemType *Base;
+        SElemType *Top;
+        Status StackSize;
+
+    } SqStack;
+
+    typedef struct StackNode // 链栈
+    {
+
+        SElemType data;
+        struct StackNode *next;
+    } StackNode, *LinkdStack;
+
+    Status InitStack(SqStack &S) // 初始化栈
+    {
+
+        S.Base = new SElemType[MAXSIZE]; // 开辟内存
+        if (!S.Base)
+            exit(OVERFLOW);    // 判断  内存是否成功
+        S.Top = S.Base;        // 栈顶 ==栈底  相当于 空栈
+        S.StackSize = MAXSIZE; // 长度
+        return OK;
+    }
+    Status IfStack(SqStack S)
+    { // 判断栈是否为空
+        if (S.Top == S.Base)
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+    Status SizeStack(SqStack S)
+    { // 求栈的长度
+        return S.Top - S.Base;
+    }
+    Status EmptyStack(SqStack &S)
+    { // 清空栈
+        if (S.Base)
+            S.Top = S.Base;
+        return OK;
+    }
+    Status DelStack(SqStack &S) // 销毁栈
+    {
+        if (S.Base)
+        {
+            //!! 由于将栈回归内存中，栈存在栈底和栈顶   将栈底的base释放
+            //!!  然后将其他的设置为 nullptr  和 0
+            delete S.Base;
+            S.StackSize = 0;
+            S.Base = S.Top = nullptr;
+        }
+        return OK;
+    }
+
+    //!+++++++++++++++     重点         ++++++++++++++++
+    Status Push(SqStack &S, SElemType e)
+    {
+        // 1.判断栈是否填满   2.元素e 入栈   3.栈顶指针加 1
+        if ((S.Top - S.Base) == S.StackSize)
+            return ERROR; // 栈满
+        //!!  相当于*S.Top= e; S.top++;  因为 s.top 所指的是一片空间的地址，
+        *S.Top++ = e;
+        return OK;
+    }
+
+    Status Pop(SqStack &S, SElemType &e) // 出栈
+    {
+        if (IfStack(S))
+            return ERROR;
+
+        e = *--S.Top; // 先--  在给 *s.top 的值赋给 e
+        return OK;
+    }
+
+    namespace _LinkdStack // 链栈
+    {
+        Status InitLinkdStack(LinkdStack &S) // 初始化
+        {
+            S = nullptr;
+            return OK;
+        }
+
+        Status IfLinkdStack(LinkdStack S) // 判断是否为空
+        {
+            if (S == nullptr)
+                return TRUE;
+            else
+                return FALSE;
+        }
+        Status PushLinkdStack(LinkdStack &S, SElemType e) // 入栈
+        {
+            LinkdStack p;
+            p->data = e;
+            p->next = S;
+            S = p;
+            return OK;
+        }
+
+        Status PopLinkdstack(LinkdStack &S) // 出栈
+        {
+            if (S == nullptr)
+                return ERROR;
+            LinkdStack P;
+            P = S;
+            S = S->next;
+            delete P;
+            return OK;
+        }
+
+        SElemType GetTop(LinkdStack S)  //获取栈顶元素
+        {
+            if (S != nullptr)
+                return S->data;
+
+        }
+
+    } // namespace LinkdStack
+
+}
+
+namespace _queue_test //!! 队列
+{
+
+}
 
 int main()
 {
