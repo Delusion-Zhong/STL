@@ -301,11 +301,11 @@ namespace _List_test
 
         Status Insert_List(DuLinkList_ptr &L, int index, ElemType e)
         {
-            DuLinkList_ptr p;                  // 定义当前节点
+            DuLinkList_ptr p;              // 定义当前节点
             if (!(p = FindList(L, index))) // 查找到当前索引链表的位置
                 return ERROR;
 
-            DuLinkList_ptr s;        // 插入的新元素节点
+            DuLinkList_ptr s;    // 插入的新元素节点
             s->data = e;         // 将数据传入 双链表节点 s中
             s->prior = p->prior; // 当前节点的上一个节点
             s = p->prior->next;  // 将上一个节点的下一个节点设置为 当前节点 S
@@ -316,7 +316,7 @@ namespace _List_test
         // 根索引删除元素
         Status Delete_List(DuLinkList_ptr &L, int index, ElemType &e)
         {
-            DuLinkList_ptr p;                  // 查找到index节点
+            DuLinkList_ptr p;              // 查找到index节点
             if (!(p = FindList(L, index))) // 查找到当前索引链表的位置
                 return ERROR;
             e = p->data;
