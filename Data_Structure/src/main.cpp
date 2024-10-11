@@ -355,7 +355,8 @@ namespace _stack_test //!! 栈
         struct StackNode *next;
     } StackNode, *LinkdStack;
 
-    Status InitStack(SqStack &S) // 初始化栈
+    Status
+    InitStack(SqStack &S) // 初始化栈
     {
 
         S.Base = new SElemType[MAXSSIZE]; // 开辟内存
@@ -466,21 +467,87 @@ namespace _stack_test //!! 栈
 
 namespace _queue_test //!! 队列
 {
-    typedef struct
+    typedef struct Queue_data
     {
-    } QElmType;
+    } Queue_data;
 
     typedef struct
     {
-        QElmType *base; // 初始化动态分配空间
-        int front;      // 头
-        int rear;       // 尾
-    } SqQueue, *Queue_ptr;
+        Queue_data *base; // 初始化动态分配空间
+        int front;        // 头
+        int rear;         //! 尾  指向数据的下一个内存
+    } SqQueue;
 
-    // Status initQueue(SqQueue &Q) // 初始化 队列
+    // typedef struct // 定义链队
     // {
-    // }
+    // } LinkdQueue;
+    // typedef struct Qnode // 链队的结构定义
+    // {
+    //     LinkdQueue data;
+    //     Qnode *next;
+    // } Qnode, *Queue_ptr;
+    // typedef struct
+    //{
+    //     LinkdQueue front;
+    //     LinkdQueue rear;
+    // } LinkQueue_ptr;
 
+    Status initQueue(SqQueue &Q) // 初始化 队列
+    {
+        Q.base = new Queue_data[MAXQSIZE];
+        if (!Q.base)
+            exit(OVERFLOW);
+        Q.front = Q.rear = 0;
+        return OK;
+    }
+    Status QueueLength(SqQueue Q) // 求长度 （包含循环队列）
+    {
+        /*
+         !! 需要判断循环链表 rear 和feont 存在负数问题
+         !! 现在假设循环链表 头为  0  尾为 5   maxqsize 为 10
+
+         Q.rear - Q.front  为 -5       加上maxQsize  最后的值为  5 最后在对  MAXQSZIE 取余 为 5
+         相当于先计算了头和为的差值 加上了总长度， 总长度 - 空元素 = 存志的长度（肯定是不为零 ）
+         最后在取于 避免了 头比尾大 最后最后相加 大于总长度
+        */
+
+        return ((Q.rear - Q.front + MAXQSIZE) % MAXQSIZE);
+    }
+
+    Status PushQueue(SqQueue &Q, Queue_data &e) // 入队
+    {
+        // 判断队列是否队满
+        if ((Q.rear + 1) % MAXQSIZE == Q.front) //!! 因为在队列中有一个 空值 作为缓冲以防溢出越界
+            return ERROR;
+        Q.base[Q.rear] = e;               //!! 在以开辟内存的数据中 找到下标为Q.rear的内存空间 存放 e这个值
+        Q.rear = (Q.rear + 1) % MAXQSIZE; //  最后更新 rear（尾指针的）的指向
+        return OK;
+    }
+    Status delQueue(SqQueue &Q, Queue_data &e)
+    {
+        if (Q.front == Q.rear) // 头和尾不能相等
+            return ERROR;
+        e = Q.base[Q.front];                // 通过数组去访问到队列的头
+        Q.front = (Q.front + 1) % MAXQSIZE; // 在将头指针+1
+        return OK;
+    }
+    Status GetQueue(SqQueue Q, Queue_data &e) // 获取头
+    {
+        if (Q.front != Q.rear) // 头和尾不能相等
+            return ERROR;
+        e = Q.base[Q.front];
+        return OK;
+    }
+
+    // namespace _LinkdQueue // 链队
+    // {
+
+    //     Status InitLinkdQueue(LinkQueue_ptr &QL)
+    //     {
+    //         QL.front = new Qnode;
+    //     }
+
+    // }
 }
 
 int main()
