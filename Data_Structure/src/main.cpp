@@ -3,7 +3,8 @@
 #include <cstring>
 #include <List>
 
-#include "../include/List.h"
+#include "../include/main.h"
+// #include "../include/list.h"
 using namespace std;
 
 // 链表
@@ -552,7 +553,7 @@ namespace _queue_test //!! 队列
 
 int main()
 {
-
+    
     cin.get();
     return 0;
 }
